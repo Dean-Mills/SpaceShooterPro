@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
-
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private float _fireRate = 0.5f;
+    private float _canFire = 0.0f;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -15,6 +20,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        //if I hit the space key spawn a game object
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            FireLaser();
+        }
     }
 
     void CalculateMovement()
@@ -30,5 +40,14 @@ public class Player : MonoBehaviour
             //will have to fix this at some point 
             transform.position = new Vector3(-1 * transform.position.x, transform.position.y, 0);
         }
+    }
+
+    void FireLaser()
+    {
+        
+        var hold = transform.position;
+        hold.y += 0.8f;
+        _canFire = Time.time + _fireRate;
+        Instantiate(_laserPrefab, hold, Quaternion.identity);
     }
 }
