@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     {
         
         var hold = transform.position;
-        hold.y += 0.8f;
+        hold.y += 1f;
         _canFire = Time.time + _fireRate;
         Instantiate(_laserPrefab, hold, Quaternion.identity);
     }
