@@ -7,11 +7,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
-    [SerializeField]
-    private GameObject _laserPrefab;
+    public GameObject _laserPrefab;
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = 0.0f;
+    [SerializeField]
+    private int _lives = 3;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -49,5 +50,15 @@ public class Player : MonoBehaviour
         hold.y += 0.8f;
         _canFire = Time.time + _fireRate;
         Instantiate(_laserPrefab, hold, Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        _lives--;
+        
+        if(_lives <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
