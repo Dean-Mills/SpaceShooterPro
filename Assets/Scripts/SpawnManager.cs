@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator coroutine;
     [SerializeField]
     private GameObject _enemyContainer;
+    private bool _stopSpawning = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,12 +27,17 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator SpawnEnemy()
     {
-        while (true)
+        while (!_stopSpawning)
         { 
             var enemyPos = new Vector3(Random.Range(-8f, 8f), 7f, 0);
             var enemy = Instantiate(Enemy, enemyPos, Quaternion.identity);
             enemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(SpawnTime); //Just so an enemy spawns immediately.... MIght change this later
         }
+    }
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 }
