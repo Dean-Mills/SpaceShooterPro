@@ -8,12 +8,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 3.5f;
     public GameObject _laserPrefab;
+    public GameObject _tripleShotPrefab;
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = 0.0f;
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private bool _tripleShot = false;
+    [SerializeField]
+    private float _tripleShotActiveTime = 5f;
+    private IEnumerator coroutine;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
@@ -55,7 +61,25 @@ public class Player : MonoBehaviour
         var hold = transform.position;
         hold.y += 1f;
         _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, hold, Quaternion.identity);
+        if(_tripleShot)
+            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+        else
+            Instantiate(_laserPrefab, hold, Quaternion.identity);
+    }
+
+    public void TripleShotCollected()
+    {
+        coroutine = RemoveTripleShotPowerUp();
+        StartCoroutine(coroutine);
+        //Again you can just 
+        //StartCoroutine(RemovePowerUp());
+        _tripleShot = true;
+    }
+
+    private IEnumerator RemoveTripleShotPowerUp()
+    {
+        yield return new WaitForSeconds(_tripleShotActiveTime);
+        _tripleShot = false;
     }
 
     public void Damage()
