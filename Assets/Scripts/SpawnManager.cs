@@ -6,15 +6,19 @@ public class SpawnManager : MonoBehaviour
 {
     public float SpawnTime;
     public GameObject Enemy;
-    private IEnumerator coroutine;
+    public GameObject TripleShotPowerUp;
+    private IEnumerator enemyCoroutine;
+    private IEnumerator powerUpCoroutine;
     [SerializeField]
     private GameObject _enemyContainer;
     private bool _stopSpawning = false;
     // Start is called before the first frame update
     void Start()
     {
-        coroutine = SpawnEnemy();
-        StartCoroutine(coroutine);
+        enemyCoroutine = SpawnEnemy();
+        powerUpCoroutine = SpawnPowerup();
+        StartCoroutine(enemyCoroutine);
+        StartCoroutine(powerUpCoroutine);
         //You can also do it like this but then you don't really get the ability to start and stop it externally
         //StartCoroutine(SpawnEnemy());
     }
@@ -33,6 +37,15 @@ public class SpawnManager : MonoBehaviour
             var enemy = Instantiate(Enemy, enemyPos, Quaternion.identity);
             enemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(SpawnTime); //Just so an enemy spawns immediately.... MIght change this later
+        }
+    }
+    private IEnumerator SpawnPowerup()
+    {
+        while (!_stopSpawning)
+        {
+            yield return new WaitForSeconds(Random.Range(3f, 7f));
+            var powerUpPos = new Vector3(Random.Range(-8f, 8f), 7f, 0);
+            Instantiate(TripleShotPowerUp, powerUpPos, Quaternion.identity);
         }
     }
 

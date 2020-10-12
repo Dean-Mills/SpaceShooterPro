@@ -251,75 +251,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.1447475, y: 3.9032378}
   m_EdgeRadius: 0
---- !u!1001 &828857118
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946216, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2623442916834946222, guid: 969fb12f06f7dd842ab5ca0aa8404cc4,
-        type: 3}
-      propertyPath: m_Name
-      value: TripleShot_PowerUp
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 969fb12f06f7dd842ab5ca0aa8404cc4, type: 3}
 --- !u!1 &1173949295
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: 5
   Enemy: {fileID: 1549907892320960429, guid: 478a2a24e2f7e51458ef3b66997ddfda, type: 3}
+  PowerUp: {fileID: 2623442916834946222, guid: 969fb12f06f7dd842ab5ca0aa8404cc4, type: 3}
   _enemyContainer: {fileID: 1579467697}
 --- !u!4 &1894650378
 Transform:
