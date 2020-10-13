@@ -6,7 +6,8 @@ public class SpawnManager : MonoBehaviour
 {
     public float SpawnTime;
     public GameObject Enemy;
-    public GameObject TripleShotPowerUp;
+    public GameObject [] PowerUps;
+    //public GameObject SpeedBoostPowerUp;
     private IEnumerator enemyCoroutine;
     private IEnumerator powerUpCoroutine;
     [SerializeField]
@@ -45,7 +46,9 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(3f, 7f));
             var powerUpPos = new Vector3(Random.Range(-8f, 8f), 7f, 0);
-            Instantiate(TripleShotPowerUp, powerUpPos, Quaternion.identity);
+            //var powerUp = PowerUps[0];
+            var random = Random.Range(0.01f, 1.99f);
+            Instantiate(PowerUps[Mathf.FloorToInt(random)], powerUpPos, Quaternion.identity);
         }
     }
 

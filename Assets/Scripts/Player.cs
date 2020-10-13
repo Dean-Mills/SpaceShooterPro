@@ -76,6 +76,16 @@ public class Player : MonoBehaviour
         _tripleShot = true;
     }
 
+    public void SpeedBoostCollected()
+    {
+        StartCoroutine(RemoveSpeedBoost());
+        _speed = 8f;
+    }
+    private IEnumerator RemoveSpeedBoost()
+    {
+        yield return new WaitForSeconds(_tripleShotActiveTime);
+        _speed = 3.5f;
+    }
     private IEnumerator RemoveTripleShotPowerUp()
     {
         yield return new WaitForSeconds(_tripleShotActiveTime);

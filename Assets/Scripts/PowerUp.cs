@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PowerUpType { TripleShot, Speed, Shield };
 public class PowerUp : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3f;
-    void Start()
-    {
-        
-    }
-
+    [SerializeField]
+    private PowerUpType _powerUpType;
+    
     // Update is called once per frame
     void Update()
     {
@@ -33,7 +32,22 @@ public class PowerUp : MonoBehaviour
             var player = other.transform.GetComponent<Player>();
             if (player != null)
             {
-                player.TripleShotCollected();
+                switch (_powerUpType)
+                {
+                    case PowerUpType.TripleShot:
+                        player.TripleShotCollected();
+                        break;
+                    case PowerUpType.Speed:
+                        player.SpeedBoostCollected();
+                        break;
+                    case PowerUpType.Shield:
+                        Debug.Log("Got shiled");
+                        break;
+                    default:
+                        Debug.Log("Defualt");
+                        break;
+                }
+                
             }
         }
     }

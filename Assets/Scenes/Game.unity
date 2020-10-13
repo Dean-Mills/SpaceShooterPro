@@ -568,7 +568,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: 5
   Enemy: {fileID: 1549907892320960429, guid: 478a2a24e2f7e51458ef3b66997ddfda, type: 3}
-  PowerUp: {fileID: 2623442916834946222, guid: 969fb12f06f7dd842ab5ca0aa8404cc4, type: 3}
+  PowerUps:
+  - {fileID: 2623442916834946222, guid: 969fb12f06f7dd842ab5ca0aa8404cc4, type: 3}
+  - {fileID: 8850079331416986162, guid: d220498a02626e140bdcb9e368902979, type: 3}
   _enemyContainer: {fileID: 1579467697}
 --- !u!4 &1894650378
 Transform:
