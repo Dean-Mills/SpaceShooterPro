@@ -24,14 +24,23 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _tripleShotActiveTime = 5f;
     private IEnumerator coroutine;
+    [SerializeField]
+    private int _score = 0;
+
+    private UIManager _UIManager;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _shield.SetActive(false);
-        if(_spawnManager == null)
+        _UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        if (_spawnManager == null)
         {
             Debug.LogError("The spawn manager is NULL");
+        }
+        if (_UIManager == null)
+        {
+            Debug.LogError("The ui manager is NULL");
         }
     }
 
@@ -119,5 +128,11 @@ public class Player : MonoBehaviour
             _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
         }
+    }
+
+    public void AddScore(int score)
+    {
+        _score += score;
+        _UIManager.UpdatePlayerScore(_score);
     }
 }
