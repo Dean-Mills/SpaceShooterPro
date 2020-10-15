@@ -16,7 +16,11 @@ public class Player : MonoBehaviour
     private int _lives = 3;
     private SpawnManager _spawnManager;
     [SerializeField]
-    private bool _tripleShot = false;
+    private bool _hasTripleShot = false;
+    [SerializeField]
+    private bool _hasShield = false;
+    [SerializeField]
+    private GameObject _shield;
     [SerializeField]
     private float _tripleShotActiveTime = 5f;
     private IEnumerator coroutine;
@@ -24,6 +28,7 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _shield.SetActive(false);
         if(_spawnManager == null)
         {
             Debug.LogError("The spawn manager is NULL");
@@ -61,7 +66,7 @@ public class Player : MonoBehaviour
         var hold = transform.position;
         hold.y += 1f;
         _canFire = Time.time + _fireRate;
-        if(_tripleShot)
+        if(_hasTripleShot)
             Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
         else
             Instantiate(_laserPrefab, hold, Quaternion.identity);
@@ -73,7 +78,7 @@ public class Player : MonoBehaviour
         StartCoroutine(coroutine);
         //Again you can just 
         //StartCoroutine(RemovePowerUp());
-        _tripleShot = true;
+        _hasTripleShot = true;
     }
 
     public void SpeedBoostCollected()
@@ -81,6 +86,13 @@ public class Player : MonoBehaviour
         StartCoroutine(RemoveSpeedBoost());
         _speed = 8f;
     }
+
+    public void ShieldCollected()
+    {
+        _hasShield = true;
+        _shield.SetActive(true);
+    }
+
     private IEnumerator RemoveSpeedBoost()
     {
         yield return new WaitForSeconds(_tripleShotActiveTime);
@@ -89,11 +101,17 @@ public class Player : MonoBehaviour
     private IEnumerator RemoveTripleShotPowerUp()
     {
         yield return new WaitForSeconds(_tripleShotActiveTime);
-        _tripleShot = false;
+        _hasTripleShot = false;
     }
 
     public void Damage()
     {
+        if (_hasShield)
+        {
+            _hasShield = false;
+            _shield.SetActive(false);
+            return;
+        }
         _lives--;
         
         if(_lives <= 0)

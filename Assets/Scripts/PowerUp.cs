@@ -41,7 +41,7 @@ public class PowerUp : MonoBehaviour
                         player.SpeedBoostCollected();
                         break;
                     case PowerUpType.Shield:
-                        Debug.Log("Got shiled");
+                        player.ShieldCollected();
                         break;
                     default:
                         Debug.Log("Defualt");
