@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
             return;
         }
         _lives--;
-        
+        _UIManager.UpdateLives(_lives);
         if(_lives <= 0)
         {
             _spawnManager.OnPlayerDeath();
