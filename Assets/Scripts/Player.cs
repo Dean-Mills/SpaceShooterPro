@@ -28,10 +28,12 @@ public class Player : MonoBehaviour
     private int _score = 0;
 
     private UIManager _UIManager;
+    private GameManager _gameManager;
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _shield.SetActive(false);
         _UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (_spawnManager == null)
@@ -41,6 +43,10 @@ public class Player : MonoBehaviour
         if (_UIManager == null)
         {
             Debug.LogError("The ui manager is NULL");
+        }
+        if (_gameManager == null)
+        {
+            Debug.LogError("The game manager is NULL");
         }
     }
 
@@ -126,6 +132,7 @@ public class Player : MonoBehaviour
         if(_lives <= 0)
         {
             _spawnManager.OnPlayerDeath();
+            _gameManager.GameOver();
             Destroy(this.gameObject);
         }
     }
