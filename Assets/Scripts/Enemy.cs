@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,12 +9,18 @@ public class Enemy : MonoBehaviour
     private float _speed = 4f;
     [SerializeField]
     private Player _player;
+    private Animator _animator;
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        if(_player == null)
+        _animator = gameObject.GetComponent<Animator>();
+        if (_player == null)
         {
             Debug.LogError("[Enemy] The player object is null");
+        }
+        if (_animator == null)
+        {
+            Debug.LogError("[Enemy] The animator object is null");
         }
     }
     void Update()
@@ -32,17 +39,22 @@ public class Enemy : MonoBehaviour
         Debug.Log(other.tag);
         if(other.tag == "Laser")
         {
-            Destroy(this.gameObject);
-            //check if player is dead
+            Destroy(other.gameObject);
+            _speed = 0;
+            _animator.SetTrigger("OnEnemyDeath");
+            Destroy(this.gameObject, 2.38f);
             if (_player != null)
             {
                 _player.AddScore(10);
             }
-            Destroy(other.gameObject);
+            
+            
         }
         if(other.tag == "Player")
         {
-            Destroy(this.gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(this.gameObject, 2.38f);
             if(_player != null)
             {
                 _player.Damage();
