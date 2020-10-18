@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject);
             _speed = 0;
             _animator.SetTrigger("OnEnemyDeath");
+            Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(this.gameObject, 2.38f);
             if (_player != null)
             {
@@ -53,6 +54,7 @@ public class Enemy : MonoBehaviour
         if(other.tag == "Player")
         {
             _animator.SetTrigger("OnEnemyDeath");
+            Destroy(gameObject.GetComponent<BoxCollider2D>());
             _speed = 0;
             Destroy(this.gameObject, 2.38f);
             if(_player != null)
