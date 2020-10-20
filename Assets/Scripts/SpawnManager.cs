@@ -13,8 +13,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _enemyContainer;
     private bool _stopSpawning = false;
-    // Start is called before the first frame update
-    void Start()
+    
+    public void StartSpawning()
     {
         enemyCoroutine = SpawnEnemy();
         powerUpCoroutine = SpawnPowerup();
@@ -23,7 +23,6 @@ public class SpawnManager : MonoBehaviour
         //You can also do it like this but then you don't really get the ability to start and stop it externally
         //StartCoroutine(SpawnEnemy());
     }
-
     // Update is called once per frame
     void Update()
     {

@@ -8,7 +8,15 @@ public class Asteroid : MonoBehaviour
     private float _rotateSpeed;
     [SerializeField]
     private GameObject _explosionEffect;
-    // Update is called once per frame
+    private SpawnManager _spawnManager;
+    private void Start()
+    {
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        if(_spawnManager == null)
+        {
+            Debug.LogError("Could not find the spawn manager");
+        }
+    }
     void Update()
     {
         gameObject.transform.Rotate(Vector3.forward * _rotateSpeed * Time.deltaTime);
@@ -22,6 +30,7 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject, 0.2f);
             Destroy(other.gameObject);
             Instantiate(_explosionEffect, pos, Quaternion.identity);
+            _spawnManager.StartSpawning();
         }
         
     }

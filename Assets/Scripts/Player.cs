@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shield;
     [SerializeField]
+    private GameObject _rightEngine;
+    [SerializeField]
+    private GameObject _leftEngine;
+    [SerializeField]
     private float _tripleShotActiveTime = 5f;
     private IEnumerator coroutine;
     [SerializeField]
@@ -35,6 +39,8 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _shield.SetActive(false);
+        _rightEngine.SetActive(false);
+        _leftEngine.SetActive(false);
         _UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         if (_spawnManager == null)
         {
@@ -129,11 +135,21 @@ public class Player : MonoBehaviour
         }
         _lives--;
         _UIManager.UpdateLives(_lives);
-        if(_lives <= 0)
+        switch (_lives)
         {
-            _spawnManager.OnPlayerDeath();
-            _gameManager.GameOver();
-            Destroy(this.gameObject);
+            case 3:
+                break;
+            case 2:
+                _rightEngine.SetActive(true);
+                break;
+            case 1:
+                _leftEngine.SetActive(true);
+                break;
+            case 0:
+                _spawnManager.OnPlayerDeath();
+                _gameManager.GameOver();
+                Destroy(this.gameObject);
+                break;
         }
     }
 
