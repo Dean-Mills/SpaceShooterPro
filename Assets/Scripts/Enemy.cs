@@ -10,10 +10,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private Player _player;
     private Animator _animator;
+    private AudioSource _audioSource;
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _animator = gameObject.GetComponent<Animator>();
+        _audioSource = gameObject.GetComponent<AudioSource>();
         if (_player == null)
         {
             Debug.LogError("[Enemy] The player object is null");
@@ -21,6 +23,10 @@ public class Enemy : MonoBehaviour
         if (_animator == null)
         {
             Debug.LogError("[Enemy] The animator object is null");
+        }
+        if (_audioSource == null)
+        {
+            Debug.LogError("[Enemy] The audiosource object is null");
         }
     }
     void Update()
@@ -47,8 +53,7 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddScore(10);
             }
-            
-            
+            _audioSource.Play();
         }
         if(other.tag == "Player")
         {
@@ -60,6 +65,7 @@ public class Enemy : MonoBehaviour
             {
                 _player.Damage();
             }
+            _audioSource.Play();
         }
     }
 }
