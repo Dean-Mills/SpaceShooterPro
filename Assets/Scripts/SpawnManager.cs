@@ -23,12 +23,7 @@ public class SpawnManager : MonoBehaviour
         //You can also do it like this but then you don't really get the ability to start and stop it externally
         //StartCoroutine(SpawnEnemy());
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+ 
     private IEnumerator SpawnEnemy()
     {
         while (!_stopSpawning)

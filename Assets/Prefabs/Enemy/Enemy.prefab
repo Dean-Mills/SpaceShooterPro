@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _player: {fileID: 0}
+  _laser: {fileID: 1260104458182082295, guid: 526a8d303b93f594c862fb030cd85ba5, type: 3}
 --- !u!212 &2070834784447289020
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009250402, y: 0.03708309}
+  m_Offset: {x: -0.009250402, y: 0.20981997}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -145,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1786523, y: 2.7892914}
+  m_Size: {x: 2.1786523, y: 2.4438176}
   m_EdgeRadius: 0
 --- !u!95 &778099795365723546
 Animator:
