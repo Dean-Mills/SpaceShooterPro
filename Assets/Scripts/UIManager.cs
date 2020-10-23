@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateLives(int currentLives)
     {
-        _lives.sprite = _livesSprites[currentLives];
+        _lives.sprite = _livesSprites[currentLives >= 0 ? currentLives : 0];
         if(currentLives == 0)
         {
             _gameOverBanner.gameObject.SetActive(true);

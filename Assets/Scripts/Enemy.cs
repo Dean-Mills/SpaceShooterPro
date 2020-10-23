@@ -8,29 +8,47 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed = 4f;
     [SerializeField]
-    private Player _player;
+    private Player _player1;
+    [SerializeField]
+    private Player _player2;
     [SerializeField]
     private GameObject _laser;
     private float _fireRate = 3f;
     private float _canFire = -1f;
     private Animator _animator;
     private AudioSource _audioSource;
+    private GameManager _gameManager;
     void Start()
     {
-        _player = GameObject.Find("Player").GetComponent<Player>();
         _animator = gameObject.GetComponent<Animator>();
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _audioSource = gameObject.GetComponent<AudioSource>();
-        if (_player == null)
-        {
-            Debug.LogError("[Enemy] The player object is null");
-        }
+        
         if (_animator == null)
         {
             Debug.LogError("[Enemy] The animator object is null");
         }
+        if (_gameManager == null)
+        {
+            Debug.LogError("[Enemy] The gameManager object is null");
+        }
         if (_audioSource == null)
         {
             Debug.LogError("[Enemy] The audiosource object is null");
+        }
+
+        _player1 = GameObject.Find("Player1").GetComponent<Player>();
+        if (_gameManager._isCoop)
+        {
+            _player2 = GameObject.Find("Player2").GetComponent<Player>();
+            if (_player2 == null)
+            {
+                Debug.LogError("[Enemy] Player2 object is null");
+            }
+        }
+        if (_player1 == null)
+        {
+            Debug.LogError("[Enemy] Player1 object is null");
         }
     }
     void Update()
@@ -69,9 +87,9 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("OnEnemyDeath");
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             Destroy(this.gameObject, 2.38f);
-            if (_player != null)
+            if (_player1 != null)
             {
-                _player.AddScore(10);
+                _player1.AddScore(10);
             }
             _audioSource.Play();
         }
@@ -81,9 +99,9 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             _speed = 0;
             Destroy(this.gameObject, 2.38f);
-            if(_player != null)
+            if(_player1 != null)
             {
-                _player.Damage();
+                _player1.Damage();
             }
             _audioSource.Play();
         }

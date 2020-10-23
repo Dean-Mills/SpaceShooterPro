@@ -9,4 +9,9 @@ public class MainMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
+
+    public void PlayCoop()
+    {
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
+    }
 }

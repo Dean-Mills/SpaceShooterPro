@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
     private AudioSource _audioSource;
     void Start()
     {
-        transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _audioSource = gameObject.GetComponent<AudioSource>();
@@ -66,6 +65,10 @@ public class Player : MonoBehaviour
         else
         {
             _audioSource.clip = _laserSound;
+        }
+        if (!_gameManager._isCoop)
+        {
+            transform.position = new Vector3(0, 0, 0);
         }
     }
 
