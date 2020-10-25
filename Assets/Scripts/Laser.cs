@@ -39,7 +39,7 @@ public class Laser : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //_down being true means that the laser comes from the enemies
-        if(other.tag == "Player" && _down)
+        if((other.tag == "Player" || other.tag == "Player2") && _down)
         {
             var player = other.GetComponent<Player>();
             if(player != null)

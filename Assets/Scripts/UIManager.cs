@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _gameOverBanner;
     [SerializeField]
-    private Image _lives;
+    private Image _livesPlayer1;
+    [SerializeField]
+    private Image _livesPlayer2;
     [SerializeField]
     private Sprite[] _livesSprites;
     // Start is called before the first frame update
@@ -19,23 +21,27 @@ public class UIManager : MonoBehaviour
     {
         _scoreText.text = "Score: " + 0;
         _gameOverBanner.gameObject.SetActive(false);
-        _lives.sprite = _livesSprites[3];
+        _livesPlayer1.sprite = _livesSprites[3];
+        _livesPlayer2.sprite = _livesSprites[3];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void UpdatePlayerScore(int score)
     {
         _scoreText.text = "Score: " + score;
     }
 
-    public void UpdateLives(int currentLives)
+    public void UpdateLives(int player, int currentLives)
     {
-        _lives.sprite = _livesSprites[currentLives >= 0 ? currentLives : 0];
+        if(player == 1)
+        {
+            _livesPlayer1.sprite = _livesSprites[currentLives >= 0 ? currentLives : 0];
+        }
+        else
+        {
+            _livesPlayer2.sprite = _livesSprites[currentLives >= 0 ? currentLives : 0];
+        }
+        
         if(currentLives == 0)
         {
             _gameOverBanner.gameObject.SetActive(true);

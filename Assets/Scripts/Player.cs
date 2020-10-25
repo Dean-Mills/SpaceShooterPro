@@ -37,6 +37,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserSound;
     private AudioSource _audioSource;
+
+    [SerializeField]
+    private bool _isPlayer1;
     void Start()
     {
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
@@ -66,17 +69,17 @@ public class Player : MonoBehaviour
         {
             _audioSource.clip = _laserSound;
         }
-        if (!_gameManager._isCoop)
-        {
-            transform.position = new Vector3(0, 0, 0);
-        }
+        WhoAmI();
     }
-
+    void WhoAmI()
+    {
+        _isPlayer1 = this.gameObject.tag == "Player";
+    }
     void Update()
     {
         CalculateMovement();
         //if I hit the space key spawn a game object
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        if ((_isPlayer1 ? Input.GetKeyDown(KeyCode.Space) : Input.GetButtonDown("Fire1")) && Time.time > _canFire)
         {
             FireLaser();
         }
@@ -84,8 +87,8 @@ public class Player : MonoBehaviour
 
     void CalculateMovement()
     {
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+        var horizontal = _isPlayer1 ? Input.GetAxis("Horizontal") : Input.GetAxis("Horizontal1");
+        var vertical = _isPlayer1 ? Input.GetAxis("Vertical") : Input.GetAxis("Vertical1");
         var direction = new Vector3(horizontal, vertical, 0).normalized;
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0f), 0);
@@ -152,7 +155,7 @@ public class Player : MonoBehaviour
             return;
         }
         _lives--;
-        _UIManager.UpdateLives(_lives);
+        _UIManager.UpdateLives((_isPlayer1 ? 1 : 2),_lives);
         switch (_lives)
         {
             case 3:

@@ -7,10 +7,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 4f;
-    [SerializeField]
+    
+    
     private Player _player1;
-    [SerializeField]
-    private Player _player2;
     [SerializeField]
     private GameObject _laser;
     private float _fireRate = 3f;
@@ -23,7 +22,7 @@ public class Enemy : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>();
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         _audioSource = gameObject.GetComponent<AudioSource>();
-        
+        _player1 = GameObject.Find("Player1").GetComponent<Player>();
         if (_animator == null)
         {
             Debug.LogError("[Enemy] The animator object is null");
@@ -36,21 +35,9 @@ public class Enemy : MonoBehaviour
         {
             Debug.LogError("[Enemy] The audiosource object is null");
         }
-
-        _player1 = GameObject.Find("Player1").GetComponent<Player>();
-        if (_gameManager._isCoop)
-        {
-            _player2 = GameObject.Find("Player2").GetComponent<Player>();
-            if (_player2 == null)
-            {
-                Debug.LogError("[Enemy] Player2 object is null");
-            }
-        }
-        if (_player1 == null)
-        {
-            Debug.LogError("[Enemy] Player1 object is null");
-        }
     }
+
+   
     void Update()
     {
         CalculateMovement();
@@ -93,17 +80,19 @@ public class Enemy : MonoBehaviour
             }
             _audioSource.Play();
         }
-        if(other.tag == "Player")
+        if(other.tag == "Player" || other.tag == "Player2")
         {
+            var player = other.GetComponent<Player>();
             _animator.SetTrigger("OnEnemyDeath");
             Destroy(gameObject.GetComponent<BoxCollider2D>());
             _speed = 0;
             Destroy(this.gameObject, 2.38f);
-            if(_player1 != null)
+            if(player != null)
             {
-                _player1.Damage();
+                player.Damage();
             }
             _audioSource.Play();
         }
+        
     }
 }
