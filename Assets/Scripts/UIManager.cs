@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _scoreText;
     [SerializeField]
+    private Text _highScoreText;
+    [SerializeField]
     private Text _gameOverBanner;
     [SerializeField]
     private Image _livesPlayer1;
@@ -19,12 +21,16 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprites;
     [SerializeField]
     private GameObject _pauseMenu;
-
     private Animator _pauseMenuAnimator;
+    private int _highScore;
     // Start is called before the first frame update
+
+    private string _highScoreKey = "HighScore";
     void Start()
     {
         _scoreText.text = "Score: " + 0;
+        _highScore = PlayerPrefs.GetInt(_highScoreKey,0);
+        _highScoreText.text = "High Score: " + _highScore;
         _gameOverBanner.gameObject.SetActive(false);
         _livesPlayer1.sprite = _livesSprites[3];
         _livesPlayer2.sprite = _livesSprites[3];
@@ -40,6 +46,8 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerScore(int score)
     {
         _scoreText.text = "Score: " + score;
+        _highScore = (score >= _highScore) ? score : _highScore;
+        _highScoreText.text = "High Score: " + _highScore;
     }
 
     public void GamePaused()
@@ -56,8 +64,14 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void SaveHighScore()
+    {
+        PlayerPrefs.SetInt(_highScoreKey, _highScore);
+    }
+
     public void MainMenu()
     {
+        SaveHighScore();
         _pauseMenuAnimator.SetBool("isPaused", false);
         _pauseMenu.SetActive(false);
         SceneManager.LoadScene(0, LoadSceneMode.Single);   

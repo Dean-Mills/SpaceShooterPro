@@ -169,6 +169,7 @@ public class Player : MonoBehaviour
             case 0:
                 _spawnManager.OnPlayerDeath();
                 _gameManager.GameOver();
+                _UIManager.SaveHighScore();
                 Destroy(this.gameObject);
                 break;
         }
