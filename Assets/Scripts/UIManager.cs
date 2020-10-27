@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -16,6 +17,8 @@ public class UIManager : MonoBehaviour
     private Image _livesPlayer2;
     [SerializeField]
     private Sprite[] _livesSprites;
+    [SerializeField]
+    private GameObject _pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,24 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerScore(int score)
     {
         _scoreText.text = "Score: " + score;
+    }
+
+    public void GamePaused()
+    {
+        Time.timeScale = 0f;
+        _pauseMenu.SetActive(true);
+    }
+
+    public void GameResumed()
+    {
+        Time.timeScale = 1f;
+        _pauseMenu.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        _pauseMenu.SetActive(false);
     }
 
     public void UpdateLives(int player, int currentLives)
