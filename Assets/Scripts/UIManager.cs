@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprites;
     [SerializeField]
     private GameObject _pauseMenu;
+
+    private Animator _pauseMenuAnimator;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,12 @@ public class UIManager : MonoBehaviour
         _gameOverBanner.gameObject.SetActive(false);
         _livesPlayer1.sprite = _livesSprites[3];
         _livesPlayer2.sprite = _livesSprites[3];
+        _pauseMenuAnimator = _pauseMenu.GetComponent<Animator>();
+        if(_pauseMenuAnimator == null)
+        {
+            Debug.LogError("Could not find pause menu animator");
+        }
+        _pauseMenuAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
 
@@ -38,18 +46,21 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         _pauseMenu.SetActive(true);
+        _pauseMenuAnimator.SetBool("isPaused", true);
     }
 
     public void GameResumed()
     {
-        Time.timeScale = 1f;
+        _pauseMenuAnimator.SetBool("isPaused", false);
         _pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        _pauseMenuAnimator.SetBool("isPaused", false);
         _pauseMenu.SetActive(false);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);   
     }
 
     public void UpdateLives(int player, int currentLives)
